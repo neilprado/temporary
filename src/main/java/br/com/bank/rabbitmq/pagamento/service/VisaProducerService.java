@@ -10,7 +10,7 @@ import java.util.concurrent.TimeoutException;
 
 public class VisaProducerService {
     public VisaProducerService(String response) throws IOException, TimeoutException {
-        final String QUEUE_CLIENT_VISA = "client_visa";
+        final String QUEUE_RESPONSE = "fila_resposta";
 
         ConnectionFactory connectionFactory = new ConnectionFactory();
         connectionFactory.setHost("localhost");
@@ -19,8 +19,8 @@ public class VisaProducerService {
         try(
                 Connection connection = connectionFactory.newConnection();
                 Channel channel = connection.createChannel()){
-            channel.queueDeclare(QUEUE_CLIENT_VISA, true, false, false, null);
-            channel.basicPublish("", QUEUE_CLIENT_VISA, MessageProperties.PERSISTENT_TEXT_PLAIN, response.getBytes());
+            channel.queueDeclare(QUEUE_RESPONSE, true, false, false, null);
+            channel.basicPublish("", QUEUE_RESPONSE, MessageProperties.PERSISTENT_TEXT_PLAIN, response.getBytes());
         }
     }
 }

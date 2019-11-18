@@ -17,15 +17,12 @@ import java.util.concurrent.TimeoutException;
 @Service
 @Data
 public class BancoServiceProducer  {
-    public static void main(String[] args) throws IOException, TimeoutException {
+    public void producer(Banco banco) throws IOException, TimeoutException {
         final String QUEUE_VISA = "fila_visa";
         final String QUEUE_MASTER = "fila_master";
         ConnectionFactory connectionFactory = new ConnectionFactory();
         connectionFactory.setHost("localhost");
         connectionFactory.setPort(5672);
-
-        Banco banco = new Banco("1234", "2201",
-                "3301", 10000, "2208", 0);
 
         Gson gson = new Gson();
         String value = gson.toJson(banco);
